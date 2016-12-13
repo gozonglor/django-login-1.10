@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WELCOME to the 9TH RING OF HELL</title>
+</head>
+<body>
+
+<div style="padding:40px;margin:40px;border:1px solid #ccc">
+    <h1>ecoShop</h1>
+    Shop responsibly by buying locally from fellow impoverished college students just like you. Would you like to...<br>
+    <b>SUBMISSION FORM</b><br>
+
+    <form action="#" method="post" enctype="multipart/form-data">
+        {% csrf_token %} {{form.pic}} <br><b>Name:</b> {{form.name}} <br><b>Description:</b> {{form.description}}
+        <br>
+        <input type="submit" value="Upload" />
+    </form>
+    {% for img in images %}
+        {{forloop.counter}}.<a href="{{ img.pic.url }}">{{ img.pic.name }}</a> | <a href="{% url 'detail' img.id %}">click to view comments</a>
+        ({{img.upload_date}}) <img src="{{ img.pic.url }}"><br>{{ img.name }}<br>{{ img.description }}<br><br>
+    {% endfor %}
+</div>
+
+</body>
+
+<script>
+
+</script>
+</html>
