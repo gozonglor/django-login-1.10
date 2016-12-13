@@ -9,11 +9,13 @@ from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
- 
+from login import forms
+from login import models
+
 @csrf_protect
 def register(request):
     if request.method == 'POST':
-        form = RegistrationForm(request.POST)
+        form = forms.RegistrationForm(request.POST)
         if form.is_valid():
             user = User.objects.create_user(
             username=form.cleaned_data['username'],
@@ -22,15 +24,13 @@ def register(request):
             )
             return HttpResponseRedirect('/register/success/')
     else:
-        form = RegistrationForm()
+        form = forms.RegistrationForm()
     variables = RequestContext(request, {
     'form': form
     })
  
-    return render_to_response(
-    'registration/register.html',
-    variables,
-    )
+    return render(request,
+    'registration/register.html',{'form': form})
  
 def register_success(request):
     return render_to_response(
