@@ -46,9 +46,9 @@ def logout_page(request):
  
 @login_required
 def home(request):
-    context = dict()
+    # context = dict()
     context = create(request)
-    context['user'] = request.user
+    # context['user'] = request.user
     # return render_to_response(
     # 'home.html',
     # context,
