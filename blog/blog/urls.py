@@ -21,6 +21,8 @@ from login.views import *
 from login import views
 from django.conf.urls.static import static
 from django.conf import settings
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -33,3 +35,8 @@ urlpatterns = [
     url(r'^home/$', views.create, name='imageupload'),
     url(r'^home/load/', include('login.urls')),
               ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG == True:
+    urlpatterns += staticfiles_urlpatterns()
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

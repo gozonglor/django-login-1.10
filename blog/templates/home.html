@@ -2,24 +2,26 @@
 
 {% extends "base.html" %}
 {% load staticfiles %}
-{% block title %}Welcome to ecoShop{% endblock %}
+{% block title %}Welcome to EcoShop{% endblock %}
 {% block head %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/home.css '%}"
+<link rel="stylesheet" type="text/css" href="{% static 'css/home.css '%}">
 {% endblock %}
 {% block content %}
-    <h1> Welcome {{ user.username }} !!! </h1>
+    <h1> Welcome {{ user.username }} to EcoShop!!! </h1>
     <button type="button" onclick="window.location.href='/logout/' ">Logout</button>
-
-<br><br>
+<table><tr><td>
 <form action="#" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{form.pic}} <br><b>Name:</b> {{form.name}} <br><b>Description:</b> {{form.description}}
+    {{form.pic}} <br><b>Name:</b> {{form.name}} <br><b>Price:</b> {{form.description}}
     <br>
     <input type="submit" value="Upload" />
-</form>
+</form></td>
+<td>
+<h2>Your Listings</h2><div style="margin: 12px; overflow-y: scroll; overflow-x: hidden; height: 400px;">
 {% for img in images %}
-{{forloop.counter}}.<a href="{{ img.pic.url }}">{{ img.pic.name }}</a> | <a href="{% url 'detail' img.id %}">click to view comments</a>
-({{img.upload_date}}) <img src="{{ img.pic.url }}"><br>{{ img.name }}<br>{{ img.description }}<br><br>
-{% endfor %}
-
+{{forloop.counter}}.{{ img.pic.name }}<br>
+    <img src="{{ img.pic.url }}" style="width: 50px; height: 50px;"><br><b>{{ img.name }}</b><br>{{ img.description }}<br><br>
+{% endfor %}</div></td>
+    </tr>
+</table>
 {% endblock %}
